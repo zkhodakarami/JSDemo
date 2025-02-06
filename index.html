@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Blur</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            position: relative;
+            cursor: pointer;
+        }
+        .image {
+            width: 500px;
+            height: auto;
+        }
+        .blurred-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(8px);
+            clip-path: circle(0px at 50% 50%);
+            transition: clip-path 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="imageContainer">
+        <img src="imageA.jpg" alt="Image A" class="image" id="mainImage">
+        <img src="imageB.jpg" alt="Image B" class="image blurred-image" id="blurredImage" style="display: none;">
+    </div>
+    
+    <script>
+        const imageContainer = document.getElementById("imageContainer");
+        const mainImage = document.getElementById("mainImage");
+        const blurredImage = document.getElementById("blurredImage");
+        
+        imageContainer.addEventListener("click", () => {
+            mainImage.style.display = "none";
+            blurredImage.style.display = "block";
+        });
+        
+        imageContainer.addEventListener("mousemove", (event) => {
+            if (blurredImage.style.display === "block") {
+                const rect = blurredImage.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                blurredImage.style.clipPath = `circle(75px at ${x}px ${y}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
