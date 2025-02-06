@@ -37,17 +37,17 @@
         <img src="./pngimg.com%20-%20microscope_PNG4.png" alt="Image A" class="image" id="mainImage">
         <img src="./5d111b859c51011b2d51f431.jpeg" alt="Image B" class="image blurred-image" id="blurredImage" style="display: none;">
     </div>
-    
     <script>
+    document.addEventListener("DOMContentLoaded", () => {
         const imageContainer = document.getElementById("imageContainer");
         const mainImage = document.getElementById("mainImage");
         const blurredImage = document.getElementById("blurredImage");
-        
+
         imageContainer.addEventListener("click", () => {
-            mainImage.style.display = "none";
-            blurredImage.style.display = "block";
+            mainImage.style.display = "none";  // Hide Image A
+            blurredImage.style.display = "block"; // Show Image B
         });
-        
+
         imageContainer.addEventListener("mousemove", (event) => {
             if (blurredImage.style.display === "block") {
                 const rect = blurredImage.getBoundingClientRect();
@@ -56,6 +56,7 @@
                 blurredImage.style.clipPath = `circle(75px at ${x}px ${y}px)`;
             }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
